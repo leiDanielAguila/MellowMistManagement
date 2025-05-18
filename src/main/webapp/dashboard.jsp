@@ -121,10 +121,11 @@
                 
                 <!-- line chart -->
                 
-                <div class="p-6">
-                	<h1 class="text-xl font-bold">Sales Overview</h1>
+                <div class="p-6 mt-4 border-2 border-black rounded-xl">
+                	<h1 class="text-xl font-bold mb-2">Sales Overview</h1>
+                	<canvas id="myChart"></canvas>
                 </div>
-                <canvas id="myChart" class="border-2 border-black rounded-xl"></canvas>
+                
                 
                 <script>
                 	const xValues = ["11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM"];
