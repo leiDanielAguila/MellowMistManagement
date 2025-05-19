@@ -71,7 +71,7 @@
                 	</a>
                 </li>
                 <li class="p-2 bg-[#efe5bd] text-black rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
+                	<a href="CustomerOrder.jsp" class="flex items-center">
                 		<img src="img/shopping-basket.png" class="w-7 h-7 mr-3"><span>Orders</span>
                 	</a>
                 </li>
@@ -122,274 +122,272 @@
                     <hr class="border-t border-black-300 mb-4" />               
                 </div>
                 
-			<form class="flex flex-wrap gap-6">
-			  <!-- Classic Milk Tea -->
-			  <div class="relative group">
-			    <input type="radio" id="classic" name="flavor" value="classic" class="peer hidden" />
-			    <label for="classic" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/flavor-classic.png" alt="Classic Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[16px] mb-1">Classic Milk Tea</span>
-			      <span class="text-gray-600 mb-5">R ₱100 M ₱110 L ₱120</span>
-			    </label>
+			<!-- Single Form for All Selections -->
+			<form id="orderForm" class="flex flex-wrap gap-6" action="CustomerOrder" method="post">
+			  <!-- Flavor Section -->
+			  <div class="w-full">
+			    <div class="flex flex-wrap gap-6">
+			      <!-- Classic Milk Tea -->
+			      <div class="relative group">
+			        <input type="radio" id="classic" name="flavor" value="classic" class="peer hidden"/>
+			        <label for="classic" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/flavor-classic.png" alt="Classic Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[16px] mb-1">Classic Milk Tea</span>
+			          <span class="text-gray-600 mb-5">R ₱100 M ₱110 L ₱120</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Other flavors... same pattern -->
+			      <div class="relative group">
+			        <input type="radio" id="taro" name="flavor" value="taro" class="peer hidden" />
+			        <label for="taro" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/flavor-taro.png" alt="Taro Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[16px] mb-1">Taro Milk Tea</span>
+			          <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Matcha Milk Tea -->
+			      <div class="relative group">
+			        <input type="radio" id="matcha" name="flavor" value="matcha" class="peer hidden" />
+			        <label for="matcha" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/flavor-matcha.png" alt="Matcha Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[16px] mb-1">Matcha Milk Tea</span>
+			          <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Strawberry Milk Tea -->
+			      <div class="relative group">
+			        <input type="radio" id="strawberry" name="flavor" value="strawberry" class="peer hidden" />
+			        <label for="strawberry" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/flavor-strawberry.png" alt="Strawberry Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[16px] mb-1">Strawberry Milk Tea</span>
+			          <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Wintermelon Milk Tea -->
+			      <div class="relative group">
+			        <input type="radio" id="wintermelon" name="flavor" value="wintermelon" class="peer hidden" />
+			        <label for="wintermelon" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/flavor-wintermelon.png" alt="Wintermelon Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[16px] mb-1">Wintermelon Milk Tea</span>
+			          <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
+			        </label>
+			      </div>
+			    </div>
+			  </div>
+			
+			  <!-- Size Section -->
+			  <div class="w-full">
+			    <h2 class="text-[24px] mt-10 mb-4">Choose Size</h2>
+			    <hr class="border-t border-black-300 mb-4" />
+			    <div class="flex flex-wrap gap-6">
+			      <!-- Regular Size -->
+			      <div class="relative group">
+			        <input type="radio" id="regular" name="size" value="regular" class="peer hidden" />
+			        <label for="regular" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/size-regular.png" alt="Regular Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mb-1">Regular</span>
+			          <span class="text-gray-600 mb-5">16 oz.</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Medium Size -->
+			      <div class="relative group">
+			        <input type="radio" id="medium" name="size" value="medium" class="peer hidden" />
+			        <label for="medium" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/size-medium.png" alt="Medium Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mb-1">Medium</span>
+			          <span class="text-gray-600 mb-5">20 oz.</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Large Size -->
+			      <div class="relative group">
+			        <input type="radio" id="large" name="size" value="large" class="peer hidden" />
+			        <label for="large" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/size-large.png" alt="Large Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mb-1">Large</span>
+			          <span class="text-gray-600 mb-5">22 oz.</span>
+			        </label>
+			      </div>
+			    </div>
+			  </div>
+			
+			  <!-- Ice Level Section -->
+			  <div class="w-full">
+			    <h2 class="text-[24px] mt-10 mb-4">Choose Ice Level</h2>
+			    <hr class="border-t border-black-300 mb-4" />
+			    <div class="flex flex-wrap gap-6">
+			      <!-- Normal Ice -->
+			      <div class="relative group">
+			        <input type="radio" id="ice-normal" name="ice" value="normal" class="peer hidden" />
+			        <label for="ice-normal" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/ice-normal.png" alt="Normal Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Normal Ice</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Less Ice -->
+			      <div class="relative group">
+			        <input type="radio" id="ice-less" name="ice" value="less" class="peer hidden" />
+			        <label for="ice-less" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/ice-less.png" alt="Less Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Less Ice</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Little Ice -->
+			      <div class="relative group">
+			        <input type="radio" id="ice-little" name="ice" value="little" class="peer hidden" />
+			        <label for="ice-little" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/ice-little.png" alt="Little Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Little Ice</span>
+			        </label>
+			      </div>
+			      
+			      <!-- No Ice -->
+			      <div class="relative group">
+			        <input type="radio" id="ice-no" name="ice" value="no" class="peer hidden" />
+			        <label for="ice-no" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/ice-no.png" alt="No Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">No Ice</span>
+			        </label>
+			      </div>
+			    </div>
 			  </div>
 			  
-			  <!-- Taro Milk Tea -->
-			  <div class="relative group">
-			    <input type="radio" id="taro" name="flavor" value="taro" class="peer hidden" />
-			    <label for="taro" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/flavor-taro.png" alt="Taro Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[16px] mb-1">Taro Milk Tea</span>
-			      <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
-			    </label>
+			  <!-- Sweetness Level Section -->
+			  <div class="w-full">
+			    <h2 class="text-[24px] mt-10 mb-4">Choose Sweetness Level</h2>
+			    <hr class="border-t border-black-300 mb-4" />
+			    <div class="flex flex-wrap gap-6">
+			      <!-- 100% Sugar -->
+			      <div class="relative group">
+			        <input type="radio" id="sugar-100" name="sugar" value="100" class="peer hidden" />
+			        <label for="sugar-100" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/sugar-100.png" alt="100% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-2">100%</span>
+			        </label>
+			      </div>
+			      
+			      <!-- 75% Sugar -->
+			      <div class="relative group">
+			        <input type="radio" id="sugar-75" name="sugar" value="75" class="peer hidden" />
+			        <label for="sugar-75" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/sugar-75.png" alt="75% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-2">75%</span>
+			        </label>
+			      </div>
+			      
+			      <!-- 50% Sugar -->
+			      <div class="relative group">
+			        <input type="radio" id="sugar-50" name="sugar" value="50" class="peer hidden" />
+			        <label for="sugar-50" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/sugar-50.png" alt="50% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-2">50%</span>
+			        </label>
+			      </div>
+			      
+			      <!-- 25% Sugar -->
+			      <div class="relative group">
+			        <input type="radio" id="sugar-25" name="sugar" value="25" class="peer hidden" />
+			        <label for="sugar-25" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/sugar-25.png" alt="25% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-2">25%</span>
+			        </label>
+			      </div>
+			    </div>
 			  </div>
-			
-			  <!-- Matcha Milk Tea -->
-			  <div class="relative group">
-			    <input type="radio" id="matcha" name="flavor" value="matcha" class="peer hidden" />
-			    <label for="matcha" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/flavor-matcha.png" alt="Matcha Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[16px] mb-1">Matcha Milk Tea</span>
-			      <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
-			    </label>
+			  
+			  <!-- Toppings Section -->
+			  <div class="w-full">
+			    <h2 class="text-[24px] mt-10 mb-4">Choose Toppings</h2>
+			    <hr class="border-t border-black-300 mb-4" />
+			    <div class="flex flex-wrap gap-6">
+			      <!-- Black Tapioca -->
+			      <div class="relative group">
+			        <input type="checkbox" id="topping-tapioca" name="toppings" value="black-tapioca" class="peer hidden" />
+			        <label for="topping-tapioca" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/topping-tapioca.png" alt="Black Tapioca" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Black Tapioca</span>
+			          <span class="text-gray-600 mb-5">₱20</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Cheesecake -->
+			      <div class="relative group">
+			        <input type="checkbox" id="topping-cheesecake" name="toppings" value="cheesecake" class="peer hidden" />
+			        <label for="topping-cheesecake" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/topping-cheesecake.png" alt="Cheesecake" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Cheesecake</span>
+			          <span class="text-gray-600 mb-5">₱20</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Grass Jelly -->
+			      <div class="relative group">
+			        <input type="checkbox" id="topping-grass-jelly" name="toppings" value="grass-jelly" class="peer hidden" />
+			        <label for="topping-grass-jelly" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/topping-grassjelly.png" alt="Grass Jelly" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Grass Jelly</span>
+			          <span class="text-gray-600 mb-5">₱20</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Pudding -->
+			      <div class="relative group">
+			        <input type="checkbox" id="topping-pudding" name="toppings" value="pudding" class="peer hidden" />
+			        <label for="topping-pudding" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/topping-pudding.png" alt="Pudding" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Pudding</span>
+			          <span class="text-gray-600 mb-5">₱20</span>
+			        </label>
+			      </div>
+			      
+			      <!-- Oreo -->
+			      <div class="relative group">
+			        <input type="checkbox" id="topping-oreo" name="toppings" value="oreo" class="peer hidden" />
+			        <label for="topping-oreo" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
+			          <img src="img/topping-oreo.png" alt="Oreo" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
+			          <span class="text-[20px] mt-5">Oreo</span>
+			          <span class="text-gray-600 mb-5">₱20</span>
+			        </label>
+			      </div>
+			    </div>
 			  </div>
-			
-			  <!-- Strawberry Milk Tea -->
-			  <div class="relative group">
-			    <input type="radio" id="strawberry" name="flavor" value="strawberry" class="peer hidden" />
-			    <label for="strawberry" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/flavor-strawberry.png" alt="Strawberry Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[16px] mb-1">Strawberry Milk Tea</span>
-			      <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
-			    </label>
+			  
+			  <!-- Quantity Section -->
+			  <div class="w-full">
+			    <h2 class="text-[24px] mt-10 mb-4">Quantity</h2>
+			    <hr class="border-t border-black-300 mb-4" />
+			    <div class="mb-6">
+			      <div class="flex items-center bg-[#e4dbc6] rounded-full w-fit px-4 py-2">
+			        <button type="button" onclick="decreaseQuantity()" class="text-2xl px-3 font-bold hover:bg-[#efe5bd] rounded-full cursor-pointer transition-colors">−</button>
+			        <input type="number" name="quantity" id="quantity" min="1" value="1" 
+			               class="w-12 rounded-2xl text-center bg-transparent focus:outline-none text-[24px] font-medium appearance-none transition-colors focus:bg-[#efe5bd] hover:bg-[#efe5bd]" />
+			        <button type="button" onclick="increaseQuantity()" class="text-2xl px-3 font-bold hover:bg-[#efe5bd] rounded-full cursor-pointer transition-colors">+</button>
+			      </div>
+			    </div>
 			  </div>
-			
-			  <!-- Wintermelon Milk Tea -->
-			  <div class="relative group">
-			    <input type="radio" id="wintermelon" name="flavor" value="wintermelon" class="peer hidden" />
-			    <label for="wintermelon" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/flavor-wintermelon.png" alt="Wintermelon Milk Tea" class="w-30 h-30 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[16px] mb-1">Wintermelon Milk Tea</span>
-			      <span class="text-gray-600 mb-5">R ₱110 M ₱120 L ₱130</span>
-			    </label>
-			  </div>
-			</form>
-			
-			<!-- Size Section -->
-            <div>
-                <h2 class="text-[24px] mt-10 mb-4">Choose Size</h2>
-                <hr class="border-t border-black-300 mb-4" />               
-            </div>
-			                
-			<form class="flex flex-wrap gap-6">
-			  <!-- Regular Size -->
-			  <div class="relative group">
-			    <input type="radio" id="regular" name="size" value="regular" class="peer hidden" />
-			    <label for="regular" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/size-regular.png" alt="Regular Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mb-1">Regular</span>
-			      <span class="text-gray-600 mb-5">16 oz.</span>
-			    </label>
-			  </div>
-			
-			  <!-- Medium Size -->
-			  <div class="relative group">
-			    <input type="radio" id="medium" name="size" value="medium" class="peer hidden" />
-			    <label for="medium" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/size-medium.png" alt="Medium Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mb-1">Medium</span>
-			      <span class="text-gray-600 mb-5">20 oz.</span>
-			    </label>
-			  </div>
-			
-			  <!-- Large Size -->
-			  <div class="relative group">
-			    <input type="radio" id="large" name="size" value="large" class="peer hidden" />
-			    <label for="large" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/size-large.png" alt="Large Size" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mb-1">Large</span>
-			      <span class="text-gray-600 mb-5">22 oz.</span>
-			    </label>
-			  </div>
-			</form>
-			
-			<!-- Ice Level Section -->
-            <div>
-                <h2 class="text-[24px] mt-10 mb-4">Choose Ice Level</h2>
-                <hr class="border-t border-black-300 mb-4" />               
-            </div>
-			                
-			<form class="flex flex-wrap gap-6">
-			  <!-- Normal Ice -->
-			  <div class="relative group">
-			    <input type="radio" id="ice-normal" name="ice" value="normal" class="peer hidden" />
-			    <label for="ice-normal" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/ice-normal.png" alt="Normal Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Normal Ice</span>
-			    </label>
-			  </div>
-			
-			  <!-- Less Ice -->
-			  <div class="relative group">
-			    <input type="radio" id="ice-less" name="ice" value="less" class="peer hidden" />
-			    <label for="ice-less" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/ice-less.png" alt="Less Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Less Ice</span>
-			    </label>
-			  </div>
-			
-			  <!-- Little Ice -->
-			  <div class="relative group">
-			    <input type="radio" id="ice-little" name="ice" value="little" class="peer hidden" />
-			    <label for="ice-little" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/ice-little.png" alt="Little Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Little Ice</span>
-			    </label>
-			  </div>
-			
-			  <!-- No Ice -->
-			  <div class="relative group">
-			    <input type="radio" id="ice-no" name="ice" value="no" class="peer hidden" />
-			    <label for="ice-no" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/ice-no.png" alt="No Ice" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">No Ice</span>
-			    </label>
-			  </div>
-			</form>
-			
-			<!-- Sweetness Level Section -->
-			                <div>
-			                    <h2 class="text-[24px] mt-10 mb-4">Choose Sweetness Level</h2>
-			                    <hr class="border-t border-black-300 mb-4" />               
-			                </div>
-			                
-			<form class="flex flex-wrap gap-6">
-			  <!-- 100% Sugar -->
-			  <div class="relative group">
-			    <input type="radio" id="sugar-100" name="sugar" value="100" class="peer hidden" />
-			    <label for="sugar-100" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/sugar-100.png" alt="100% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-2">100%</span>
-			    </label>
-			  </div>
-			
-			  <!-- 75% Sugar -->
-			  <div class="relative group">
-			    <input type="radio" id="sugar-75" name="sugar" value="75" class="peer hidden" />
-			    <label for="sugar-75" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/sugar-75.png" alt="75% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-2">75%</span>
-			    </label>
-			  </div>
-			
-			  <!-- 50% Sugar -->
-			  <div class="relative group">
-			    <input type="radio" id="sugar-50" name="sugar" value="50" class="peer hidden" />
-			    <label for="sugar-50" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/sugar-50.png" alt="50% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-2">50%</span>
-			    </label>
-			  </div>
-			
-			  <!-- 25% Sugar -->
-			  <div class="relative group">
-			    <input type="radio" id="sugar-25" name="sugar" value="25" class="peer hidden" />
-			    <label for="sugar-25" class="cursor-pointer rounded-2xl p-4 pb-8 hover:bg-[#efe5bd] bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/sugar-25.png" alt="25% Sugar" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-2">25%</span>
-			    </label>
+			  
+			  <!-- Total and Submit Section -->
+			  <div class="w-full">	
+			  <h2 class="text-[24px] mb-4" id="totalPrice">Total Price : ₱170</h2>		   
+			    <button type="submit" 
+			            class="flex items-center justify-center gap-2 bg-[#e4dbc6] hover:bg-[#f3e8c8] rounded-full px-6 py-3 w-full sm:w-fit transition-colors duration-200 cursor-pointer group">
+			      <!-- Shopping Cart Icon (using Heroicons) -->
+			      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+			           class="w-6 h-6 group-hover:scale-130 transition-transform">
+			        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+			      </svg>
+			      <span class="text-[20px] font-medium">Add to Cart</span>
+			    </button>
 			  </div>
 			</form>
-			
-			<!-- Toppings Section -->
-            <div>
-                <h2 class="text-[24px] mt-10 mb-4">Choose Toppings</h2>
-                <hr class="border-t border-black-300 mb-4" />               
-            </div>
-			<form class="flex flex-wrap gap-6">
-			  <!-- Black Tapioca -->
-			  <div class="relative group">
-			    <input type="checkbox" id="topping-tapioca" name="toppings" value="black-tapioca" class="peer hidden" />
-			    <label for="topping-tapioca" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/topping-tapioca.png" alt="Black Tapioca" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Black Tapioca</span>
-			      <span class="text-gray-600 mb-5">₱20</span>
-			    </label>
-			  </div>
-			
-			  <!-- Cheesecake -->
-			  <div class="relative group">
-			    <input type="checkbox" id="topping-cheesecake" name="toppings" value="cheesecake" class="peer hidden" />
-			    <label for="topping-cheesecake" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/topping-cheesecake.png" alt="Cheesecake" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Cheesecake</span>
-			      <span class="text-gray-600 mb-5">₱20</span>
-			    </label>
-			  </div>
-			
-			  <!-- Grass Jelly -->
-			  <div class="relative group">
-			    <input type="checkbox" id="topping-grass-jelly" name="toppings" value="grass-jelly" class="peer hidden" />
-			    <label for="topping-grass-jelly" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/topping-grassjelly.png" alt="Grass Jelly" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Grass Jelly</span>
-			      <span class="text-gray-600 mb-5">₱20</span>
-			    </label>
-			  </div>
-			
-			  <!-- Pudding -->
-			  <div class="relative group">
-			    <input type="checkbox" id="topping-pudding" name="toppings" value="pudding" class="peer hidden" />
-			    <label for="topping-pudding" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/topping-pudding.png" alt="Pudding" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Pudding</span>
-			      <span class="text-gray-600 mb-5">₱20</span>
-			    </label>
-			  </div>
-			
-			  <!-- Oreo -->
-			  <div class="relative group">
-			    <input type="checkbox" id="topping-oreo" name="toppings" value="oreo" class="peer hidden" />
-			    <label for="topping-oreo" class="cursor-pointer rounded-2xl p-4 hover:bg-[#efe5bd] pb-8 bg-[#e4dbc6] flex flex-col items-center w-55 h-55 peer-checked:bg-[#efe5bd] transition-all hover:scale-[1.02] active:scale-[0.98] duration-200">
-			      <img src="img/topping-oreo.png" alt="Oreo" class="w-27 h-27 mb-2 transition-transform duration-200 group-hover:scale-110" />
-			      <span class="text-[20px] mt-5">Oreo</span>
-			      <span class="text-gray-600 mb-5">₱20</span>
-			    </label>
-			  </div>
-			</form>
-  			<!-- Quantity Section -->
-             <div>
-                 <h2 class="text-[24px] mt-10 mb-4">Quantity</h2>
-                 <hr class="border-t border-black-300 mb-4" />               
-             </div>
-             <form class="flex flex-wrap gap-6">
-			  <!-- Quantity Option -->
-			<div class="mb-6">
-			  <div class="flex items-center bg-[#e4dbc6] rounded-full w-fit px-4 py-2">
-			    <button type="button" onclick="decreaseQuantity()" class="text-2xl px-3 font-bold hover:bg-[#efe5bd] rounded-full cursor-pointer transition-colors">−</button>
-			    <input type="number" name="quantity" id="quantity" min="1" value="1" 
-			           class="w-12 rounded-2xl text-center bg-transparent focus:outline-none text-[24px] font-medium appearance-none transition-colors focus:bg-[#efe5bd] hover:bg-[#efe5bd]" />
-			    <button type="button" onclick="increaseQuantity()" class="text-2xl px-3 font-bold hover:bg-[#efe5bd] rounded-full cursor-pointer transition-colors">+</button>
-			  </div>
-			</div>
-			
-			</form>
-			<!-- Add to cart Section -->
-                <div>
-                    <h2 class="text-[24px] mb-4">Total Price : ₱170</h2>          
-                </div>
-                <!-- Add to Cart Button -->
-				<div>
-				  <button type="submit" 
-				          class="flex items-center justify-center gap-2 bg-[#e4dbc6] hover:bg-[#f3e8c8] rounded-full px-6 py-3 w-full sm:w-fit transition-colors duration-200 cursor-pointer group">
-				    <!-- Shopping Cart Icon (using Heroicons) -->
-				    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
-				         class="w-6 h-6 group-hover:scale-130 transition-transform">
-				      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-				    </svg>
-				    <span class="text-[20px] font-medium">Add to Cart</span>
-				  </button>
-				</div>
-               
+     
             </div>
         </div>
     </div>
@@ -401,31 +399,35 @@
 		    <div class="grid gap-3 mb-8">
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Flavor:</span>
-		        <span class="text-[16px] font-medium">Strawberry Milk Tea</span>
+		        <span class="text-[16px] font-medium"><%= request.getAttribute("selectedFlavor") %></span>
 		      </div>
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Size:</span>
-		        <span class="text-[16px] font-medium">Regular</span>
+		        <span class="text-[16px] font-medium"><%= request.getAttribute("drinkSize") %></span>
 		      </div>
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Ice Level:</span>
-		        <span class="text-[16px] font-medium">Normal</span>
+		        <span class="text-[16px] font-medium"><%= request.getAttribute("iceLevel") %></span>
 		      </div>
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Sweetness Level:</span>
-		        <span class="text-[16px] font-medium">Normal</span>
+		        <span class="text-[16px] font-medium"><%= request.getAttribute("sugarLevel") %></span>
 		      </div>
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Toppings:</span>
-		        <span class="text-[16px] font-medium text-right">Black Tapioca, Pudding, Oreo</span>
+		        <span class="text-[16px] font-medium text-right"><%= request.getAttribute("drinkToppings") %></span>
 		      </div>
 		      <div class="flex justify-between">
 		        <span class="text-[16px]">Quantity:</span>
-		        <span class="text-[16px] font-medium">1</span>
+		        <span class="text-[16px] font-medium"><%= request.getAttribute("drinkQuantity") %></span>
+		      </div>
+		      <div class="flex justify-between">
+		        <span class="text-[16px]">Total Amount for this order:</span>
+		        <span class="text-[16px] font-medium">₱<%= request.getAttribute("orderItemPrice") %></span>
 		      </div>
 		    </div>
 		
-		    <div class="flex flex-col gap-4">
+		    <div class="flex flex-col gap-4">		  
 		      <button onclick="closeModal()" 
 		              class="bg-[#efe5bd] hover:bg-[#e4dbc6] text-gray-800 py-3 rounded-full transition-colors duration-200 font-medium cursor-pointer">
 		        Add More to Cart
@@ -464,13 +466,13 @@
 			      modal.classList.add('invisible');
 			    }, 300);
 			  }
-			
-		
-		  // Update your Add to Cart button to call showCartModal()
-		  document.querySelector('button[type="submit"]').addEventListener('click', function(e) {
-		    e.preventDefault();
-		    showCartModal();
-		  });
+		  document.addEventListener('DOMContentLoaded', function() {
+		    <% if(request.getAttribute("selectedFlavor") != null) { %>
+		        showCartModal();
+		    <% } %>
+			});
+		  
+		  
 		</script>
 </body>
 </html>

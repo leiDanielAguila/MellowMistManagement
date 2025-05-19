@@ -1,17 +1,15 @@
 
 public class OrderItemToppings {
-	private int orderItemId, toppingId, quantity;
+	private int orderItemId, toppingId;
 	
 	public OrderItemToppings() {
 		orderItemId = 0;
 		toppingId = 0;
-		quantity = 0;
 	}
 	
-	public OrderItemToppings(int orderItemId, int toppingId, int quantity) {
+	public OrderItemToppings(int orderItemId, int toppingId) {
 		this.orderItemId = orderItemId;
 		this.toppingId = toppingId;
-		this.quantity = quantity;
 	}
 	
 	// getters 
@@ -24,9 +22,6 @@ public class OrderItemToppings {
 		return toppingId;
 	}
 	
-	public int getQuantity() {
-		return quantity;
-	}
 	
 	// setters
 	
@@ -38,7 +33,4 @@ public class OrderItemToppings {
 		this.toppingId = toppingId;
 	}
 	
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 }
