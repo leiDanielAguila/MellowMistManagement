@@ -2,8 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400&display=swap" rel="stylesheet">
     <script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 	</script>
@@ -20,48 +24,73 @@
         body {
             background-color: #f0ead2;
         }
+        body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+    
+    /* Example usage with different weights */
+    .light-text {
+      font-weight: 300;
+    }
+    
+    .regular-text {
+      font-weight: 400;
+    }
+      /* Hide number input arrows */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
     </style>
     <title>Admin Dashboard</title>
 </head>
 <body class="overflow-hidden">
     <div class="flex h-screen">
         <!-- Sidenav -->
-        <div id="sidenav" class="w-80 h-screen flex-shrink-0 text-white font-bold p-4">
+        <div id="sidenav" class="w-80 h-screen flex-shrink-0 px-6 text-white p-4">
             <!-- Sidenav content here -->
-            <div class="flex items-center">
-            	<img src="img/mk.png" class="w-20 h-20 mr-3">
-            	<h2 class="text-xl mb-4">Mellow Mist <br> Management</h2>
+            <div class="flex justify-start space-x-4 w-full items-start px-8 py-5">
+            	<img src="img/logo.png" class="w-15 h-15">
+            	<h5 class="text-lg text-black text-center mt-2">Mellow Mist <br> Management</h5>
             </div>
-            <hr class="mb-3 mt-3">
+            <hr class="border-t-1 border-black mb-4 mt-3">
             <ul class="space-y-4">
                 <li class="p-2 bg-[#efe5bd] text-black rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
-                		<img src="img/speedometer.png" class="w-6 h-6 mr-3"><span>Dashboard</span>
+                	<a href="dashboard.jsp" class="flex items-center">
+                		<img src="img/speedometer.png" class="w-7 h-7 mr-3"><span>Dashboard</span>
+                	</a>
+                </li>
+                <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
+                	<a href="CustomerOrder.jsp" class="flex items-center">
+                		<img src="img/shopping-basket.png" class="w-7 h-7 mr-3"><span>Orders</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
                 	<a href="#" class="flex items-center">
-                		<img src="img/shopping-basket.png" class="w-6 h-6 mr-3"><span>Orders</span>
+                		<img src="img/document.png" class="w-7 h-7 mr-3"><span>Queue</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
                 	<a href="#" class="flex items-center">
-                		<img src="img/document.png" class="w-6 h-6 mr-3"><span>Queue</span>
+                		<img src="img/delivery-box.png" class="w-7 h-7 mr-3"><span>Inventory</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
                 	<a href="#" class="flex items-center">
-                		<img src="img/delivery-box.png" class="w-6 h-6 mr-3"><span>Inventory</span>
+                		<img src="img/increase.png" class="w-7 h-7 mr-3"><span>Sales</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
                 	<a href="#" class="flex items-center">
-                		<img src="img/increase.png" class="w-6 h-6 mr-3"><span>Sales</span>
-                	</a>
-                </li>
-                <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
-                		<img src="img/search-profile.png" class="w-6 h-6 mr-3"><span>Manage Users</span>
+                		<img src="img/search-profile.png" class="w-7 h-7 mr-3"><span>Manage Users</span>
                 	</a>
                 </li>
             </ul>
@@ -70,10 +99,10 @@
         <!-- Main content area -->
         <div class="flex flex-col flex-grow">
             <!-- Topnav -->
-            <div id="topnav" class="w-full h-32 shadow-2xl flex items-center p-6">
+            <div id="topnav" class="w-full h-32 shadow-md flex items-center p-6">
                 <!-- Topnav content here -->
                 <div class=" flex items-center ml-auto">                	
-                	<div class="w-1 h-22 bg-zinc-400 rounded-xl mr-6"></div>
+                	<div class="w-[2px] h-22 bg-black rounded-xl mr-6"></div>
                 	<h1 class="text-l font-bold mr-3">Admin</h1> 
                 	<img src="img/admin.png" class="w-10 h-10 ml-3 mr-3">
                 </div>            
@@ -82,8 +111,8 @@
             <!-- Dashboard content -->
             <div id="dashboardcontent" class="p-6 overflow-auto h-full">
                 <!-- Dashboard content here -->
-                <div class="p-6">
-                    <h2 class="text-xl font-bold mb-4">Dashboard</h2>               
+                <div class="p-2">
+                    <h2 class="text-[30px] mb-4">Dashboard</h2>               
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
