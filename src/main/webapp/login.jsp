@@ -84,10 +84,6 @@
 
                 <!-- Remember Me & Forgot Password -->
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox" class="rounded border-gray-300 text-[#f8d88b] focus:ring-[#f8d88b]">
-                        <label class="ml-2 text-sm text-gray-600">Remember me</label>
-                    </div>
                     <a href="#" class="text-sm text-[#f8d88b] hover:text-[#ecd075] transition">Forgot Password?</a>
                 </div>
 

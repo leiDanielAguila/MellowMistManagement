@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -66,7 +67,7 @@
             <hr class="border-t-1 border-black mb-4 mt-3">
             <ul class="space-y-4">
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="dashboard.jsp" class="flex items-center">
+                	<a href="dashboard" class="flex items-center">
                 		<img src="img/speedometer.png" class="w-7 h-7 mr-3"><span>Dashboard</span>
                 	</a>
                 </li>
@@ -76,27 +77,42 @@
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
+                	<a href="OrderQueue" class="flex items-center">
                 		<img src="img/document.png" class="w-7 h-7 mr-3"><span>Queue</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
+                	<a href="Inventory.jsp" class="flex items-center">
                 		<img src="img/delivery-box.png" class="w-7 h-7 mr-3"><span>Inventory</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
+                	<a href="SalesServlet" class="flex items-center">
                 		<img src="img/increase.png" class="w-7 h-7 mr-3"><span>Sales</span>
                 	</a>
                 </li>
                 <li class="p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded hover:text-black hover: rounded-xl flex items-center">
-                	<a href="#" class="flex items-center">
+                	<a href="Users.jsp" class="flex items-center">
                 		<img src="img/search-profile.png" class="w-7 h-7 mr-3"><span>Manage Users</span>
                 	</a>
                 </li>
+                <div class="mt-50 pt-8">
+                   <hr class="border-t-1 border-black mb-4">
+                   <button id="logoutBtn" class="w-full p-2 text-black hover:bg-opacity-20 hover:bg-[#efe5bd] rounded-xl flex cursor-pointer items-center justify-center">
+                       <img src="img/logout.png" class="w-7 h-7 mr-3">
+                       <span>Logout</span>
+                   </button>
+               </div>
             </ul>
         </div>
+        
+         <%
+	    String username = (String) session.getAttribute("username");
+	    if (username == null) {
+	        username = "none";
+	        return;
+	    }
+	%>
         
         <!-- Main content area -->
         <div class="flex flex-col flex-grow">
@@ -105,7 +121,7 @@
                 <!-- Topnav content here -->
                 <div class=" flex items-center ml-auto">                	
                 	<div class="w-[2px] h-22 bg-black rounded-xl mr-6"></div>
-                	<h1 class="text-l font-bold mr-3">Admin</h1> 
+                	<h1 class="text-l font-bold mr-3">Welcome, <%= username %>!</h1> 
                 	<img src="img/admin.png" class="w-10 h-10 ml-3 mr-3">
                 </div>            
             </div>
@@ -121,6 +137,7 @@
                     <h2 class="text-[24px] mb-4">Choose Flavor</h2>
                     <hr class="border-t border-black-300 mb-4" />               
                 </div>
+             
                 
 			<!-- Single Form for All Selections -->
 			<form id="orderForm" class="flex flex-wrap gap-6" action="CustomerOrder" method="post">
@@ -178,7 +195,7 @@
 			      </div>
 			    </div>
 			  </div>
-			
+			  			
 			  <!-- Size Section -->
 			  <div class="w-full">
 			    <h2 class="text-[24px] mt-10 mb-4">Choose Size</h2>
@@ -374,8 +391,7 @@
 			  </div>
 			  
 			  <!-- Total and Submit Section -->
-			  <div class="w-full">	
-			  <h2 class="text-[24px] mb-4" id="totalPrice">Total Price : ₱170</h2>		   
+			  <div class="w-full">			
 			    <button type="submit" 
 			            class="flex items-center justify-center gap-2 bg-[#e4dbc6] hover:bg-[#f3e8c8] rounded-full px-6 py-3 w-full sm:w-fit transition-colors duration-200 cursor-pointer group">
 			      <!-- Shopping Cart Icon (using Heroicons) -->
@@ -387,57 +403,90 @@
 			    </button>
 			  </div>
 			</form>
-     
+			
+			
+			<!-- Add this near the top of your form, perhaps after the "Orders" title -->
+			<div class="flex justify-between items-center mb-4">
+			  <h2 class="text-[30px]">Orders</h2>
+			  <button onclick="showCartModal()" class="flex items-center justify-center gap-2 bg-[#e4dbc6] hover:bg-[#f3e8c8] rounded-full px-4 py-2 transition-colors duration-200 cursor-pointer">
+			    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+			      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+			    </svg>
+			    <span class="font-medium">View Cart</span>
+			    <span class="bg-[#bd9b61] text-white rounded-full w-6 h-6 flex items-center justify-center ml-1">
+			      <%= session.getAttribute("cartItems") != null ? ((List)session.getAttribute("cartItems")).size() : "0" %>
+			    </span>
+			  </button>
+			</div>     
             </div>
         </div>
     </div>
-		<div id="cartModal" class="fixed inset-0 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300 ease-out" 
-		     style="background-color: rgba(0, 0, 0, 0.15)">
-		  <div class="bg-[#f0ead2] rounded-2xl p-8 max-w-md w-full mx-4 shadow-lg relative z-50 transform transition-all duration-300 scale-95 opacity-0">
-		    <h2 class="text-[24px] font-bold mb-6 text-center">Item Successfully Added to Cart!</h2>
-		    
-		    <div class="grid gap-3 mb-8">
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Flavor:</span>
-		        <span class="text-[16px] font-medium"><%= request.getAttribute("selectedFlavor") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Size:</span>
-		        <span class="text-[16px] font-medium"><%= request.getAttribute("drinkSize") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Ice Level:</span>
-		        <span class="text-[16px] font-medium"><%= request.getAttribute("iceLevel") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Sweetness Level:</span>
-		        <span class="text-[16px] font-medium"><%= request.getAttribute("sugarLevel") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Toppings:</span>
-		        <span class="text-[16px] font-medium text-right"><%= request.getAttribute("drinkToppings") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Quantity:</span>
-		        <span class="text-[16px] font-medium"><%= request.getAttribute("drinkQuantity") %></span>
-		      </div>
-		      <div class="flex justify-between">
-		        <span class="text-[16px]">Total Amount for this order:</span>
-		        <span class="text-[16px] font-medium">₱<%= request.getAttribute("orderItemPrice") %></span>
-		      </div>
-		    </div>
-		
-		    <div class="flex flex-col gap-4">		  
-		      <button onclick="closeModal()" 
-		              class="bg-[#efe5bd] hover:bg-[#e4dbc6] text-gray-800 py-3 rounded-full transition-colors duration-200 font-medium cursor-pointer">
-		        Add More to Cart
-		      </button>
-		      <button class="bg-[#f8d88b] hover:bg-[#ecd075] text-gray-800 py-3 rounded-full transition-colors duration-200 font-medium cursor-pointer">
-		        Proceed to Checkout
-		      </button>
-		    </div>
-		  </div>
-		</div>
+		<!-- Updated Cart Modal HTML with Remove Buttons -->
+<div id="cartModal" class="fixed inset-0 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300 ease-out"
+    style="background-color: rgba(0, 0, 0, 0.15)">
+    <div class="bg-[#f0ead2] rounded-2xl p-8 max-w-md w-full mx-4 shadow-lg relative z-50 transform transition-all duration-300 scale-95 opacity-0">
+        <h2 class="text-[24px] font-bold mb-6 text-center">Shopping Cart</h2>
+
+        <div id="cartItems" class="max-h-64 overflow-y-auto mb-4">
+            <!-- This is where cart items will be displayed -->
+            <%
+            if(session.getAttribute("cartItems") != null) {
+                java.util.List<java.util.Map<String, Object>> cartItems = 
+                    (java.util.List<java.util.Map<String, Object>>) session.getAttribute("cartItems");
+
+                for(int i = 0; i < cartItems.size(); i++) {
+                    java.util.Map<String, Object> item = cartItems.get(i);
+            %>
+            <div class="p-3 mb-3 bg-[#e4dbc6] rounded-lg relative">
+                <div class="flex justify-between mb-1">
+                    <span class="font-medium"><%= item.get("flavor") %> - <%= item.get("size") %></span>
+                    <span class="font-medium">₱<%= item.get("price") %></span>
+                </div>
+                <div class="text-sm">
+                    <div><%= item.get("ice") %> ice, <%= item.get("sugar") %>% sugar</div>
+                    <% if(item.get("toppings") != null && !String.valueOf(item.get("toppings")).isEmpty()) { %>
+                    <div>Toppings: <%= item.get("toppings") %></div>
+                    <% } %>
+                    <div>Qty: <%= item.get("quantity") %></div>
+                </div>
+                <a href="CustomerOrder?removeItem=<%= i %>" 
+                   class="absolute right-2 bottom-2 text-sm text-red-600 hover:text-red-800 font-medium">
+                    Remove
+                </a>
+            </div>
+            <%
+                }
+            } else {
+            %>
+            <div class="text-center py-4 text-gray-500">Your cart is empty</div>
+            <% } %>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <button onclick="closeModal()"
+                class="bg-[#efe5bd] hover:bg-[#e4dbc6] text-gray-800 py-3 rounded-full transition-colors duration-200 font-medium cursor-pointer">
+                Continue Shopping
+            </button>
+            <form action="Payment" method="post">
+                <button type="submit"
+                    class="bg-[#f8d88b] hover:bg-[#ecd075] text-gray-800 py-3 rounded-full transition-colors duration-200 font-medium cursor-pointer w-full"
+                    <%= session.getAttribute("cartItems") == null || ((java.util.List<?>)session.getAttribute("cartItems")).isEmpty() ? "disabled" : "" %>>
+                    Proceed to Checkout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>		
+<div id="logoutConfirmModal" class="modal">
+   <div class="modal-content" style="max-width: 400px;">
+       <span class="close-btn" data-modal="logoutConfirmModal">&times;</span>
+       <h3 class="text-xl font-semibold mb-4">Confirm Logout?</h3>
+       <div class="mt-6 flex justify-center">
+           <button type="button" class="action-btn mr-3" data-close="logoutConfirmModal">No</button>
+           <button type="button" class="action-btn btn-primary" id="confirmLogoutBtn">Yes</button>
+       </div>
+   </div>
+</div>
 		<script>
 		  function decreaseQuantity() {
 		    const input = document.getElementById('quantity');
@@ -471,7 +520,41 @@
 		        showCartModal();
 		    <% } %>
 			});
-		  
+		// Logout functionality
+          const logoutBtn = document.getElementById('logoutBtn');
+          const logoutConfirmModal = document.getElementById('logoutConfirmModal');
+          const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+          const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+          const closeLogoutModal = document.getElementById('closeLogoutModal');
+          const logoutForm = document.getElementById('logoutForm');
+         
+          // Show logout confirmation modal when clicking logout button
+          logoutBtn.addEventListener('click', function() {
+              logoutConfirmModal.style.display = 'block';
+          });
+         
+          // Handle confirmed logout
+          confirmLogoutBtn.addEventListener('click', function() {
+              // Update the form action to the correct servlet path
+              logoutForm.action = '${pageContext.request.contextPath}/LogoutServlet';
+              logoutForm.submit();
+          });
+         
+          // Close logout modal when clicking No or X
+          cancelLogoutBtn.addEventListener('click', function() {
+              logoutConfirmModal.style.display = 'none';
+          });
+         
+          closeLogoutModal.addEventListener('click', function() {
+              logoutConfirmModal.style.display = 'none';
+          });
+         
+          // Close logout modal when clicking outside of it
+          window.addEventListener('click', function(event) {
+              if (event.target === logoutConfirmModal) {
+                  logoutConfirmModal.style.display = 'none';
+              }
+          });
 		  
 		</script>
 </body>

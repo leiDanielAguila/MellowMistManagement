@@ -34,6 +34,7 @@ public class ProcessLogin extends HttpServlet {
 		//PrintWriter pw = response.getWriter();
         String uName = request.getParameter("username");
         String pass = request.getParameter("password");
+        
         boolean validUser = false;
         
         try {
@@ -56,7 +57,8 @@ public class ProcessLogin extends HttpServlet {
         }
         
         if (validUser) {
-        	response.sendRedirect("dashboard.jsp");
+        	 request.getSession().setAttribute("username", uName);
+        	response.sendRedirect("dashboard");        	
         } else {
         	//response.sendRedirect("login.jsp");
         	request.setAttribute("error", "1");
@@ -72,6 +74,8 @@ public class ProcessLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		
 	}
 
 }

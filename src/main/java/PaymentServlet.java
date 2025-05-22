@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,8 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/CustomerOrder")
-public class CustomerOrder extends HttpServlet {
+@WebServlet("/Payment")
+public class PaymentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     // Database connection parameters
@@ -29,7 +28,7 @@ public class CustomerOrder extends HttpServlet {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "1234"; // Set your database password here
     
-    // Pricing maps
+    // Pricing maps (copied from CustomerOrder to ensure consistency)
     private static final Map<String, Map<String, Integer>> FLAVOR_PRICES = new HashMap<>();
     private static final Map<String, Integer> TOPPING_PRICES = new HashMap<>();
     
@@ -60,209 +59,66 @@ public class CustomerOrder extends HttpServlet {
         TOPPING_PRICES.put("pudding", 20);
         TOPPING_PRICES.put("oreo", 20);
     }
-    
-    public CustomerOrder() {
-        super();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Just forward to Payment.jsp
+        request.getRequestDispatcher("Payment.jsp").forward(request, response);
     }
 
- // Updated doGet method in CustomerOrder.java
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get session
         HttpSession session = request.getSession(false);
-        
-        // Handle item removal from cart
-        String removeItemIndex = request.getParameter("removeItem");
-        if (removeItemIndex != null && session != null) {
-            try {
-                int index = Integer.parseInt(removeItemIndex);
-                @SuppressWarnings("unchecked")
-                List<Map<String, Object>> cartItems = (List<Map<String, Object>>) session.getAttribute("cartItems");
-                
-                if (cartItems != null && index >= 0 && index < cartItems.size()) {
-                    // Get the price of the item to be removed
-                    int itemPrice = (int) cartItems.get(index).get("price");
-                    
-                    // Remove the item from the cart
-                    cartItems.remove(index);
-                    
-                    // Update the cart total
-                    int cartTotal = (int) session.getAttribute("cartTotal");
-                    cartTotal -= itemPrice;
-                    session.setAttribute("cartTotal", cartTotal);
-                    
-                    // Update the cart items in session
-                    session.setAttribute("cartItems", cartItems);
-                }
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                // Log the error but continue processing
-                System.err.println("Error removing item from cart: " + e.getMessage());
-            }
-            
-            // Redirect back to the same page to avoid form resubmission
-            response.sendRedirect("CustomerOrder");
-            return; // Important to return here to prevent further processing
+        if (session == null || session.getAttribute("cartItems") == null) {
+            response.sendRedirect("CustomerOrder.jsp"); // redirect if no order
+            return;
         }
         
-        // Check if "confirmOrder" parameter exists (this means we're finalizing the order)
-        String confirmOrder = request.getParameter("confirmOrder");
-        if (confirmOrder != null && confirmOrder.equals("true")) {
-            // Save the entire cart to database
-            if (session != null) {
-                @SuppressWarnings("unchecked")
-                List<Map<String, Object>> cartItems = (List<Map<String, Object>>) session.getAttribute("cartItems");
-                if (cartItems != null && !cartItems.isEmpty()) {
-                    // Process the entire cart and save to database
-                    saveOrderToDatabase(cartItems);
-                    
-                    // Clear the cart
+        // Get payment method from form
+        String paymentMethod = request.getParameter("payment");
+        if (paymentMethod == null || paymentMethod.isEmpty()) {
+            paymentMethod = "Cash"; // Default payment method
+        }
+        
+        // Check if we're processing a payment
+        String processPayment = request.getParameter("processPayment");
+        if (processPayment != null && processPayment.equals("true")) {
+            // Process payment and save order to database
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) session.getAttribute("cartItems");
+            
+            if (cartItems != null && !cartItems.isEmpty()) {
+                // Save the order to database with payment method
+                boolean orderSaved = saveOrderToDatabase(cartItems, paymentMethod);
+                
+                if (orderSaved) {
+                    // Clear the cart after successful payment
                     cartItems.clear();
                     session.setAttribute("cartItems", cartItems);
                     session.setAttribute("cartTotal", 0);
                     
                     // Set a success message
-                    request.setAttribute("orderCompleted", true);
-                }
-            }
-        } else if (request.getParameter("clearCart") != null) {
-            // Clear the cart
-            if (session != null) {
-                session.removeAttribute("cartItems");
-                session.setAttribute("cartTotal", 0);
-            }
-        }
-        
-        request.getRequestDispatcher("CustomerOrder.jsp").forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get session or create if it doesn't exist
-        HttpSession session = request.getSession(true);
-        
-        // Get form parameters
-        String flavor = request.getParameter("flavor");
-
-        String size = request.getParameter("size");
-        String ice = request.getParameter("ice");
-        String sugar = request.getParameter("sugar");
-        String[] toppingsArray = request.getParameterValues("toppings");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        
-        // Handle case when no toppings are selected
-        if (toppingsArray == null) {
-            toppingsArray = new String[0];
-        }
-        
-        // Calculate item price based on flavor, size, and toppings
-        int basePrice = getBasePrice(flavor, size);
-        int toppingsPrice = getToppingsPrice(toppingsArray);
-        int itemPrice = (basePrice + toppingsPrice) * quantity;
-        
-        // Create a list of order items if it doesn't exist in session
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> cartItems = (List<Map<String, Object>>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
-        
-        // Format toppings for display
-        String formattedToppings = formatToppings(toppingsArray);
-        
-        // Create a map to hold the current order item details
-        Map<String, Object> orderItem = new HashMap<>();
-        String flavorKey = flavor.toLowerCase(); // "Classic" -> "classic"
-        String imagePath = "img/flavor-" + flavorKey + ".png"; // "img/flavor-classic.png"
-        
-        orderItem.put("flavor", capitalizeFirstLetter(flavor) + " Milk Tea");
-        orderItem.put("size", capitalizeFirstLetter(size));
-        orderItem.put("ice", formatIceLevel(ice));
-        orderItem.put("sugar", sugar);
-        orderItem.put("toppings", formattedToppings.isEmpty() ? "" : formattedToppings);
-        orderItem.put("quantity", quantity);
-        orderItem.put("price", itemPrice);
-        orderItem.put("image", imagePath);
-        
-        // Add to cart
-        cartItems.add(orderItem);
-        
-        // Calculate total cart amount
-        int totalCartAmount = 0;
-        for (Map<String, Object> item : cartItems) {
-            totalCartAmount += (int) item.get("price");
-        }
-        session.setAttribute("cartTotal", totalCartAmount);
-        
-        // Set attributes for the JSP
-        request.setAttribute("selectedFlavor", capitalizeFirstLetter(flavor) + " Milk Tea");
-        request.setAttribute("drinkSize", capitalizeFirstLetter(size));
-        request.setAttribute("iceLevel", formatIceLevel(ice));
-        request.setAttribute("sugarLevel", sugar + "%");
-        request.setAttribute("drinkToppings", formattedToppings.isEmpty() ? "No toppings" : formattedToppings);
-        request.setAttribute("drinkQuantity", quantity);
-        request.setAttribute("orderItemPrice", itemPrice);
-        
-        // Forward back to the JSP
-        request.getRequestDispatcher("CustomerOrder.jsp").forward(request, response);
-    }
-    
-    // Helper methods
-    private int getBasePrice(String flavor, String size) {
-        Map<String, Integer> prices = FLAVOR_PRICES.get(flavor);
-        if (prices != null) {
-            Integer price = prices.get(size);
-            if (price != null) {
-                return price;
-            }
-        }
-        // Default price if not found
-        return 100;
-    }
-    
-    private int getToppingsPrice(String[] toppings) {
-        int total = 0;
-        if (toppings != null) {
-            for (String topping : toppings) {
-                Integer price = TOPPING_PRICES.get(topping);
-                if (price != null) {
-                    total += price;
+                    request.setAttribute("paymentCompleted", true);
+                    
+                    // Forward to a success page or back to payment page with success message
+                    request.getRequestDispatcher("PaymentSuccess.jsp").forward(request, response);
+                    return;
+                } else {
+                    // Payment processing failed
+                    request.setAttribute("paymentError", "There was an error processing your payment. Please try again.");
                 }
             }
         }
-        return total;
-    }
-    
-    private String formatToppings(String[] toppings) {
-        if (toppings == null || toppings.length == 0) {
-            return "";
-        }
         
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < toppings.length; i++) {
-            String formattedTopping = toppings[i].replace("-", " ");
-            sb.append(capitalizeFirstLetter(formattedTopping));
-            if (i < toppings.length - 1) {
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
-    }
-    
-    private String formatIceLevel(String ice) {
-        if (ice == null) return "";
-        return capitalizeFirstLetter(ice);
-    }
-    
-    private String capitalizeFirstLetter(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-        return input.substring(0, 1).toUpperCase() + input.substring(1);
+        // If we get here, either we're showing the payment form or there was an error
+        request.getRequestDispatcher("Payment.jsp").forward(request, response);
     }
     
     // Database operations
-    private void saveOrderToDatabase(List<Map<String, Object>> cartItems) {
+    private boolean saveOrderToDatabase(List<Map<String, Object>> cartItems, String paymentMethod) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        boolean success = false;
 
         try {
             // Load the JDBC driver
@@ -285,11 +141,10 @@ public class CustomerOrder extends HttpServlet {
             }
 
             // 1. Insert into orders table
-            int userId = 1; // Assuming admin user for now
-            LocalDate orderDate = LocalDate.now(); // Current date for the new order_date column
+            int userId = 1; // Assuming admin user for now - could be taken from session
+            LocalDate orderDate = LocalDate.now();
             LocalTime orderTime = LocalTime.now();
-            String paymentMethod = "Cash"; // Default payment method
-            String orderStatus = "Preparing"; // Default order status
+            String orderStatus = "Paid"; // Set to paid since this is coming from payment process
 
             String orderSql = "INSERT INTO orders (user_id, order_date, order_time, total_amount, payment_method, order_status) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -297,7 +152,7 @@ public class CustomerOrder extends HttpServlet {
             System.out.println("Preparing SQL: " + orderSql);
             pstmt = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, userId);
-            pstmt.setObject(2, orderDate); // Add the order_date parameter
+            pstmt.setObject(2, orderDate);
             pstmt.setObject(3, orderTime);
             pstmt.setInt(4, totalOrderAmount);
             pstmt.setString(5, paymentMethod);
@@ -401,6 +256,7 @@ public class CustomerOrder extends HttpServlet {
             // Commit transaction
             conn.commit();
             System.out.println("Transaction committed successfully");
+            success = true;
 
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC Driver not found: " + e.getMessage());
@@ -452,6 +308,8 @@ public class CustomerOrder extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        
+        return success;
     }
     
     // Helper method to get the next order_item_id

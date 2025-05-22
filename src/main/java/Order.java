@@ -1,9 +1,11 @@
 import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class Order {
     private int orderId, userId, totalAmount;
     private LocalTime orderTime;
     private String paymentMethod, orderStatus;
+    private LocalDate orderDate;
 
     public Order() {
         this.orderId = 0;
@@ -12,15 +14,17 @@ public class Order {
         this.orderTime = LocalTime.now();
         this.paymentMethod = "";
         this.orderStatus = "";
+        this.orderDate = LocalDate.now();
     }
 
-    public Order(int orderId, int userId, int totalAmount, LocalTime orderTime, String paymentMethod, String orderStatus) {
+    public Order(int orderId, int userId, int totalAmount, LocalTime orderTime, String paymentMethod, String orderStatus, LocalDate orderDate) {
         this.orderId = orderId;
         this.userId = userId;
         this.totalAmount = totalAmount;
         this.orderTime = orderTime;
         this.paymentMethod = paymentMethod;
         this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
     }
 
     // Getters
@@ -47,6 +51,10 @@ public class Order {
     public String getOrderStatus() {
         return orderStatus;
     }
+    
+    public LocalDate getOrderDate() {
+    	return orderDate;
+    }
 
     // Setters
     public void setOrderId(int orderId) {
@@ -71,6 +79,10 @@ public class Order {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+    
+    public void setLocalDate(LocalDate orderDate) {
+    	this.orderDate = orderDate;
     }
 }
 
